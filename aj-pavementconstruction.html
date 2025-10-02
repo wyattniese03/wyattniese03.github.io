@@ -1,0 +1,126 @@
+<<!DOCTYPE HTML>
+<!--
+    Astral by HTML5 UP
+    html5up.net | @ajlkn
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<head>
+    <title>AJ Asphalt Internship</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <style>
+    #matrixCanvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1; /* behind all content */
+    }
+</style>
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+<body class="is-preload">
+
+<!-- Matrix Background Canvas -->
+    <canvas id="matrixCanvas"></canvas>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Nav -->
+        <nav id="nav">
+            <a href="index.html" class="icon solid fa-home"><span>Home</span></a>
+            <a href="index.html#work" class="icon solid fa-folder"><span>Work</span></a>
+            <a href="index.html#contact" class="icon solid fa-envelope"><span>Contact</span></a>
+        </nav>
+
+        <!-- Main -->
+        <div id="main">
+
+            <!-- Internship Details -->
+            <article id="aj-asphalt" class="panel">
+                <header>
+                    <h2>Internship at AJ Asphalt</h2>
+                </header>
+                <span class="image fit"><img src="images/aj.webp" alt="AJ Asphalt Logo"></span>
+                <p>
+                    In Summer 2025 - Today, I gained valuable experience in <strong>pavement takeoffs</strong> and <strong>Excel VBA</strong> by developing effective automations that 
+                    streamlined the use of bidding data. Additionally, I provided general IT support around the office, assisting with issues
+                    related to <strong>Excel, Word, OneDrive, and SharePoint.</strong> I also contributed strategic insights on the implementation of <strong>artificial
+                    intelligence</strong>, helping the company explore opportunities to optimize daily operations and enhance overall efficiency.
+                </p>
+                <p>
+                    <strong>Key Contributions:</strong>
+                    <ul>
+                        <li>Built VBA macros to transfer bid data to Excel spreadsheets to efficiently create proposals </li>
+                        <li>Built a Excel project tracker/manager to track labor hours and materials using VBA macros</li> 
+                        <li>Improved consistency and efficiency of client deliverables.</li>
+                        <li>Gained real-world experience applying programming to business operations.</li>
+                    </ul>
+                </p>
+                <footer>
+                    <a href="index.html#work" class="button">← Back to Work</a>
+                </footer>
+            </article>
+
+        </div>
+
+        <!-- Footer -->
+        <div id="footer">
+            <ul class="copyright">
+                <li>&copy; Wyatt Niese.</li>
+                <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    
+    <script>
+    const canvas = document.getElementById("matrixCanvas");
+    const ctx = canvas.getContext("2d");
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    const letters = "アカサタナハマヤラワ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const fontSize = 16;
+    const columns = Math.floor(canvas.width / fontSize);
+    const drops = Array(columns).fill(1);
+
+    function drawMatrix() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = "#FF0000"; // red
+        ctx.font = fontSize + "px monospace";
+
+        for (let i = 0; i < drops.length; i++) {
+            const text = letters.charAt(Math.floor(Math.random() * letters.length));
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            drops[i]++;
+        }
+    }
+
+    setInterval(drawMatrix, 50);
+</script>
+
+</body>
+</html>
