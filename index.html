@@ -6,13 +6,29 @@
 -->
 <html>
 	<head>
-		<title>Astral by HTML5 UP</title>
+		<title>PortFolio</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<style>
+    #matrixCanvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1; /* behind all content */
+    }
+</style>
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
+
+	<!-- Matrix Background Canvas -->
+    <canvas id="matrixCanvas"></canvas>
+	
+	
+	
 
 		<!-- Wrapper-->
 			<div id="wrapper">
@@ -31,12 +47,12 @@
 						<!-- Me -->
 							<article id="home" class="panel intro">
 								<header>
-									<h1>Jane Doe</h1>
-									<p>Senior Astral Projectionist</p>
+									<h1>Wyatt Niese</h1>
+									<p>Computer Science Engineering student at The Ohio State University</p>
 								</header>
 								<a href="#work" class="jumplink pic">
 									<span class="arrow icon solid fa-chevron-right"><span>See my work</span></span>
-									<img src="images/me.jpg" alt="" />
+									<img src="images/bio pic.PNG" alt="" />
 								</a>
 							</article>
 
@@ -46,14 +62,13 @@
 									<h2>Work</h2>
 								</header>
 								<p>
-									Phasellus enim sapien, blandit ullamcorper elementum eu, condimentum eu elit.
-									Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
-									luctus elit eget interdum.
+									<!-- add in work description later-->
 								</p>
 								<section>
 									<div class="row">
 										<div class="col-4 col-6-medium col-12-small">
-											<a href="#" class="image fit"><img src="images/pic01.jpg" alt=""></a>
+											<a href="aj-pavementconstruction.html" class="image fit"><img src="images/aj.webp" alt=""></a>
+											<P style = "text-align:center; margin-top:5px;"> Internship at AJ pavement construction </P>
 										</div>
 										<div class="col-4 col-6-medium col-12-small">
 											<a href="#" class="image fit"><img src="images/pic02.jpg" alt=""></a>
@@ -97,20 +112,20 @@
 								<header>
 									<h2>Contact Me</h2>
 								</header>
-								<form action="#" method="post">
+								<form action="https://formspree.io/f/xvgwrkpn" method="POST">
 									<div>
 										<div class="row">
 											<div class="col-6 col-12-medium">
-												<input type="text" name="name" placeholder="Name" />
+												<input type="text" name="name" placeholder="Name" required/>
 											</div>
 											<div class="col-6 col-12-medium">
-												<input type="text" name="email" placeholder="Email" />
+												<input type="text" name="email" placeholder="Email" required/>
 											</div>
 											<div class="col-12">
 												<input type="text" name="subject" placeholder="Subject" />
 											</div>
 											<div class="col-12">
-												<textarea name="message" placeholder="Message" rows="6"></textarea>
+												<textarea name="message" placeholder="Message" rows="6" required></textarea>
 											</div>
 											<div class="col-12">
 												<input type="submit" value="Send Message" />
@@ -125,7 +140,7 @@
 				<!-- Footer -->
 					<div id="footer">
 						<ul class="copyright">
-							<li>&copy; Untitled.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							<li>&copy; Wyatt Niese.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 						</ul>
 					</div>
 
@@ -137,6 +152,43 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			
+			<script>
+    const canvas = document.getElementById("matrixCanvas");
+    const ctx = canvas.getContext("2d");
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    const letters = "アカサタナハマヤラワ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const fontSize = 16;
+    const columns = Math.floor(canvas.width / fontSize);
+    const drops = Array(columns).fill(1);
+
+    function drawMatrix() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = "#FF0000"; // green
+        ctx.font = fontSize + "px monospace";
+
+        for (let i = 0; i < drops.length; i++) {
+            const text = letters.charAt(Math.floor(Math.random() * letters.length));
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            drops[i]++;
+        }
+    }
+
+    setInterval(drawMatrix, 50);
+</script>
 
 	</body>
 </html>
